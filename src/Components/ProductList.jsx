@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getProduct } from "../api/woocommerce";
-import { Cascader } from 'antd';
+import { getProduct,getProductCategories1 } from "../api/woocommerce";
+
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+ 
 
  
 
@@ -58,18 +59,22 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  
+
 
   return (
     <>
-       <Cascader
+       {/* <Cascader
     // options={options}
     expandTrigger="hover"
     displayRender={displayRender}
     onChange={onChange}
     placeholder={"SelectBycatg"}
-  />
-      {/* <h2>Products</h2> */}
+  /> */}
+    
+    
       <div className="products-grid">
+        {/* {console.log(categories1)} */}
         {products.map((product) => (
           <div key={product.id} className="product-card">
             <img 

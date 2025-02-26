@@ -187,3 +187,45 @@ h1 {
 .nav-btn:hover {
   opacity: 0.8;
 }
+
+
+/* Category Section */
+.category-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 15px 30px;
+  margin-top: 10px;
+  background-color: #f8f8f8; /* Light gray background */
+  border-radius: 8px;
+}
+
+/* Cascader Container */
+.cascader-container {
+  margin-left: 20px;
+}
+
+/* Category Buttons */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category-button {
+  background-color: #e6e6e6;
+  color: black;
+  font-weight: bold;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.category-button:hover {
+  background-color: #d1d1d1;
+}
+
+

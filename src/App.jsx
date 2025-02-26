@@ -3,23 +3,31 @@ import ProductList from "./Components/ProductList";
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import DisplayNavbar from "./Components/DisplayNavbar"
 import './App.css'
+import CategoryList from "./Components/CategoryList";
 
 function App() {
   
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
    
-    {/* <Navbar/> */}
-    <DisplayNavbar />
-    <Routes>
-      <Route path="/" element={<ProductList/>}></Route>
-      {/* <Route path="/shopnow" element={<ShopNow />}></Route>
-      <Route path="/bestSeller" element={<BestSellers  />}></Route>
-      <Route path="/viewcart" element={<MyCart/>}></Route>
-      <Route path="/wishlist" element={<Wishlist/>}></Route> */}
-    </Routes>
-    </BrowserRouter>
+    // {/* <Navbar/> */}
+    // <DisplayNavbar />
+    // <Routes>
+    //   <Route path="/" element={<ProductList/>}></Route>
+    //   {/* <Route path="/shopnow" element={<ShopNow />}></Route>
+    //   <Route path="/bestSeller" element={<BestSellers  />}></Route>
+    //   <Route path="/viewcart" element={<MyCart/>}></Route>
+    //   <Route path="/wishlist" element={<Wishlist/>}></Route> */}
+    // </Routes>
+    // </BrowserRouter>
+
+
+    <>
+    
+    <CategoryList/>
+    <ProductList/>
+    </>
   );
 }
 

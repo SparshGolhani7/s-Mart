@@ -35,11 +35,11 @@ export const getProduct = async (a) => {
 };
 
 
-export const getProductCategories = async () => {
+export const getProductCategories1 = async () => {
   try {
     const response = await woocommerce.get("/products/categories",{
       params:{
-        parent:0,
+        parent:55,
       },
     })
     return response.data;
@@ -51,4 +51,4 @@ export const getProductCategories = async () => {
 };
 
 
-
+// https://devfolio.co.in/onlinestore/wp-json/wc/v3/products/categories?parent=52

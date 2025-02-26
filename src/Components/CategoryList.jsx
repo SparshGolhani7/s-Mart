@@ -1,8 +1,42 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import { getProduct,getProductCategories1 } from "../api/woocommerce";
+import { Cascader } from 'antd';
+
+
+
+
+
+
 
 const CategoryList = () => {
+    const [categories1,setCategories1] = useState([])
+
+    
+useEffect(() => {
+    async function fetchProductCatgeories1() {
+      const data = await getProductCategories1 ();
+      setCategories1(data);
+     // console.log(products);
+    }
+    fetchProductCatgeories1();
+  }, []);
+
   return (
-    <div>CategoryList</div>
+    <div className="category-section">
+    <div className="cascader-container">
+      <Cascader expandTrigger="hover" placeholder="Select Category" />
+    </div>
+
+    <div className="category-buttons">
+      {categories1
+        // .filter(category => ["Fruits", "Vegetables", "Dairy"].includes(category.name)) 
+        .map(category => (
+          <button key={category.id} className="category-button">
+            {category.name}
+          </button>
+        ))}
+    </div>
+  </div>
   )
 }
 
