@@ -17,12 +17,14 @@ const woocommerce = axios.create({
 
 
 
-export const getProduct = async (a) => {
+export const getProduct = async (catgId) => {
   try {
     const response = await woocommerce.get("/products",{
       params:{
        per_page:8,
         category:55,
+        category:catgId,
+
       // parent_id:55,
       },
     })
@@ -49,6 +51,31 @@ export const getProductCategories1 = async () => {
     return [];
   }
 };
+
+
+export const getProductSubCategories1 = async (subCatgId) => {
+  try {
+    const response = await woocommerce.get("/products/categories",{
+      params:{
+        parent:subCatgId,
+      },
+    })
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+};
+
+
+
+
+
+
+
+
+
 
 
 // https://devfolio.co.in/onlinestore/wp-json/wc/v3/products/categories?parent=52

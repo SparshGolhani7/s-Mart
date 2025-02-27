@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getProduct,getProductCategories1 } from "../api/woocommerce";
 
 
-const ProductList = () => {
+const ProductList = ({categoryId}) => {
   const [products, setProducts] = useState([]);
  
 
@@ -50,9 +50,11 @@ const ProductList = () => {
   // // Just show the latest item.
   // const displayRender = (labels) => labels[labels.length - 1];
 
+ 
+  
   useEffect(() => {
     async function fetchProducts() {
-      const data = await getProduct ();
+      const data = await getProduct (categoryId);
       setProducts(data);
      // console.log(products);
     }
@@ -74,7 +76,7 @@ const ProductList = () => {
     
     
       <div className="products-grid">
-        {/* {console.log(categories1)} */}
+        {console.log(products)}
         {products.map((product) => (
           <div key={product.id} className="product-card">
             <img 

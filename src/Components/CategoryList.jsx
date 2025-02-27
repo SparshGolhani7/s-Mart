@@ -1,47 +1,63 @@
-import React,{useState,useEffect} from 'react'
-import { getProduct,getProductCategories1 } from "../api/woocommerce";
-import { Cascader } from 'antd';
+import React, { useState, useEffect } from "react";
+import { getProduct, getProductCategories1 } from "../api/woocommerce";
+import { useNavigate } from "react-router-dom";
+
+
+const CategoryList = ({categoryId,setCategoryId}) => {
+  const [categories1, setCategories1] = useState([]);
+  const navigate = useNavigate();
+ 
 
 
 
-
-
-
-
-const CategoryList = () => {
-    const [categories1,setCategories1] = useState([])
-
-    
-useEffect(() => {
+  useEffect(() => {
     async function fetchProductCatgeories1() {
-      const data = await getProductCategories1 ();
+      const data = await getProductCategories1();
       setCategories1(data);
-     // console.log(products);
+      // console.log(products);
     }
     fetchProductCatgeories1();
   }, []);
 
+  useEffect(()=>{
+    console.log("catgid",categoryId)
+  },[categoryId])
+  
+
   return (
-    <div className="category-section">
-    <div className="cascader-container">
-      <Cascader expandTrigger="hover" placeholder="Select Category" />
-    </div>
+    <>
+     
 
-    <div className="category-buttons">
-      {categories1
-        // .filter(category => ["Fruits", "Vegetables", "Dairy"].includes(category.name)) 
-        .map(category => (
-          <button key={category.id} className="category-button">
-            {category.name}
-          </button>
-        ))}
-    </div>
-  </div>
-  )
-}
+      <>
+        <ul className="category-list">
+          {console.log(categories1)}
+          {categories1.map((category) => (
+            
+            <li
+             key={category.id}
+             className="category-item"
+             onClick={()=>setCategoryId(category.id)}>
+              <h4 className="category-title">{category.name}</h4>
+              <img
+                className="category-image"
+                src={category.image?.src|| "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9_JsfwI0j-o3uHyR0r7dkxihGjKoi-fBwDw&s"}
+                alt="loading"
+              />
+            </li>
+          ))}
+        </ul>
+      </>
+      
+   
 
-export default CategoryList
 
+
+
+    </>
+  );
+};
+
+export default CategoryList;
 
 // import React, { useState } from "react";
 // import { Cascader, Card, Row, Col } from "antd";
@@ -122,7 +138,7 @@ export default CategoryList
 // // Get all products under the selected category
 // const getAllProducts = (selectedValue) => {
 //   let allProducts = productData[selectedValue] || [];
-  
+
 //   options.forEach((category) => {
 //     if (category.value === selectedValue) {
 //       category.children?.forEach((subCategory) => {
@@ -151,7 +167,7 @@ export default CategoryList
 
 //   const onChange = (value) => {
 //     const selectedCategory = value[value.length - 1];
-    
+
 //     // 🛠️ Fix: Always replace the selectedProducts state, preventing mixing
 //     const allProducts = getAllProducts(selectedCategory);
 //     setSelectedProducts(allProducts);

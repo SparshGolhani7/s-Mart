@@ -1,6 +1,10 @@
 import React,{useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { Input, Button, Card, Row, Col } from 'antd';
+import {UserOutlined} from '@ant-design/icons'
+import { Cascader } from "antd";
+
+
 
 
 const { Search } = Input;
@@ -41,11 +45,39 @@ const DisplayNavbar = () => {
 
     return (
       <nav className="navbar">
-        <h1 className="navbar-title">sMart</h1>
+        {/* Logo & Category Wrapper */}
+        <div className="navbar-header">
+          <h1 className="navbar-title">sMart</h1>
+          <div className="category-section">
+            <Cascader expandTrigger="hover" placeholder="Select Category" />
+          </div>
+        </div>
+    
+        {/* Navigation Links */}
         <div className="navbar-links">
+          <button onClick={() => navigate('/')} className="nav-btn home-btn">
+            Home
+          </button>
+          <button onClick={handleViewCart} className="nav-btn cart-btn">
+            My Cart
+          </button>
+          <button onClick={handleViewWishlist} className="nav-btn wishlist-btn">
+            Wishlist
+          </button>
+          <UserOutlined />
+        </div>
+      </nav>
+    );
+    
+};
 
-          
-        {/* <Search
+export default DisplayNavbar;
+
+
+
+
+
+     {/* <Search
         placeholder="Search items"
         value={searchTerm}
         onChange={handleChange}
@@ -55,29 +87,3 @@ const DisplayNavbar = () => {
         style={{ marginBottom: '20px' }}
       />
            */}
-
-
-
-          <button onClick={() => navigate('/')} className="nav-btn home-btn" >
-            Home
-          </button>
-          <button onClick={handleShopNow} className="nav-btn " >
-            ShopNow
-          </button>
-          <button onClick={() => navigate('/bestSeller')} className="nav-btn home-btn" >
-            BestSeller
-          </button>
-          <button onClick={handleViewCart} className="nav-btn cart-btn">
-            My Cart 
-          </button>
-          <button onClick={handleViewWishlist} className="nav-btn wishlist-btn">
-            Wishlist 
-          </button>
-          
-
-        </div>
-      </nav>
-    );
-};
-
-export default DisplayNavbar;

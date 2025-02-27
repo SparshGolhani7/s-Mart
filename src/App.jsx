@@ -1,33 +1,33 @@
-import React from "react";
+import React,{useState} from "react";
 import ProductList from "./Components/ProductList";
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import DisplayNavbar from "./Components/DisplayNavbar"
 import './App.css'
+import Home from "./Components/Home";
 import CategoryList from "./Components/CategoryList";
 
 function App() {
+  const [categoryId,setCategoryId] = useState(55)
   
 
   return (
-    // <BrowserRouter>
+    <BrowserRouter>
    
-    // {/* <Navbar/> */}
-    // <DisplayNavbar />
-    // <Routes>
-    //   <Route path="/" element={<ProductList/>}></Route>
-    //   {/* <Route path="/shopnow" element={<ShopNow />}></Route>
-    //   <Route path="/bestSeller" element={<BestSellers  />}></Route>
-    //   <Route path="/viewcart" element={<MyCart/>}></Route>
-    //   <Route path="/wishlist" element={<Wishlist/>}></Route> */}
-    // </Routes>
-    // </BrowserRouter>
+    {/* <Navbar/> */}
+    <DisplayNavbar />
+    <Routes>
+
+      <Route path="/" element={<CategoryList categoryId={categoryId} setCategoryId={setCategoryId}/>}></Route>
+      <Route path="/products" element={<ProductList categoryId={categoryId}/>}></Route>
+      {/* 
+      <Route path="/bestSeller" element={<BestSellers  />}></Route>
+      <Route path="/viewcart" element={<MyCart/>}></Route>
+      <Route path="/wishlist" element={<Wishlist/>}></Route> */}
+    </Routes>
+    </BrowserRouter>
 
 
-    <>
-    
-    <CategoryList/>
-    <ProductList/>
-    </>
+  
   );
 }
 
