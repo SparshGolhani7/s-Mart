@@ -36,6 +36,23 @@ export const getProduct = async (catgId) => {
   }
 };
 
+export const allProducts = async (catgId) => {
+  try {
+    const response = await woocommerce.get("/products",{
+      params:{
+       per_page:8,
+        category:55,
+      },
+    })
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+};
+
+
 
 export const getProductCategories1 = async () => {
   try {

@@ -5,6 +5,7 @@ import DisplayNavbar from "./Components/DisplayNavbar"
 import './App.css'
 import Home from "./Components/Home";
 import CategoryList from "./Components/CategoryList";
+import AllProducts from "./Components/AllProducts";
 
 function App() {
   const [categoryId,setCategoryId] = useState(55)
@@ -14,11 +15,12 @@ function App() {
     <BrowserRouter>
    
     {/* <Navbar/> */}
-    <DisplayNavbar />
+    <DisplayNavbar categoryId={categoryId} setCategoryId={setCategoryId} />
     <Routes>
 
-      <Route path="/" element={<CategoryList categoryId={categoryId} setCategoryId={setCategoryId}/>}></Route>
+      <Route index element={<CategoryList categoryId={categoryId} setCategoryId={setCategoryId}/>}></Route>
       <Route path="/products" element={<ProductList categoryId={categoryId}/>}></Route>
+      <Route path="/allProducts" element={<AllProducts/>}></Route> 
       {/* 
       <Route path="/bestSeller" element={<BestSellers  />}></Route>
       <Route path="/viewcart" element={<MyCart/>}></Route>

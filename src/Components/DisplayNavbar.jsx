@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { Input, Button, Card, Row, Col } from 'antd';
 import {UserOutlined} from '@ant-design/icons'
@@ -9,7 +9,7 @@ import { Cascader } from "antd";
 
 const { Search } = Input;
 
-const DisplayNavbar = () => {
+const DisplayNavbar = ({categoryId,setCategoryId}) => {
   const [searchTerm,setSearchTerm] = useState('')
   
   const handleSearch = () => {
@@ -39,9 +39,11 @@ const DisplayNavbar = () => {
       navigate('/shopnow');
     };
 
+    useEffect(()=>{
+      // {categoryId==55?navigate('/'):null}
+      navigate('/')
 
-
-
+    },[categoryId])
 
     return (
       <nav className="navbar">
@@ -55,8 +57,11 @@ const DisplayNavbar = () => {
     
         {/* Navigation Links */}
         <div className="navbar-links">
-          <button onClick={() => navigate('/')} className="nav-btn home-btn">
+          <button onClick={() => setCategoryId(55)} className="nav-btn home-btn">
             Home
+          </button>
+          <button onClick={()=>navigate('/allProducts')}className="nav-btn allProducts-btn">
+           All Products
           </button>
           <button onClick={handleViewCart} className="nav-btn cart-btn">
             My Cart

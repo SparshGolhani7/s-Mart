@@ -21,8 +21,8 @@ const CategoryList = ({categoryId,setCategoryId}) => {
 
   useEffect(()=>{
     console.log("catgid",categoryId)
+    {categoryId!=55?navigate(`/products?catg_Id=${categoryId}`):null}
   },[categoryId])
-  
 
   return (
     <>
