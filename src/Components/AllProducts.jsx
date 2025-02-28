@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { allProducts } from "../api/woocommerce";
+import { AllContext } from "../context/AllContext";
 
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-
+  const {setSearchedProducts} = useContext(AllContext)
 
    
   useEffect(() => {
@@ -21,7 +22,7 @@ const AllProducts = () => {
   return (
     <>
   <div className="products-grid">
-  {/* {console.log(products)} */}
+  {console.log(products)}
   {products.map((product) => (
     <div key={product.id} className="product-card">
       <img 

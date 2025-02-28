@@ -87,6 +87,21 @@ export const getProductSubCategories1 = async (subCatgId) => {
 
 
 
+export const getProductBySearch = async(value)=>{
+  try {
+    const response = await woocommerce.get(`/products?search=${value}`)
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+
+};
+
+
+
+
 
 
 

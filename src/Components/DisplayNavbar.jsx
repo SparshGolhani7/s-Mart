@@ -1,30 +1,39 @@
-import React,{useEffect, useState} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { Input, Button, Card, Row, Col } from 'antd';
-import {UserOutlined} from '@ant-design/icons'
+import {UserOutlined,ShoppingCartOutlined} from '@ant-design/icons'
 import { Cascader } from "antd";
-
-
+import { AllContext } from '../context/AllContext';
+import { getProductBySearch } from '../api/woocommerce';
 
 
 const { Search } = Input;
 
 const DisplayNavbar = ({categoryId,setCategoryId}) => {
   const [searchTerm,setSearchTerm] = useState('')
+  const {searchProducts,setSearchProducts} = useContext(AllContext)
+
+  // const handleSearch = async (value) => {
+  //   setSearchTerm(value); 
   
-  const handleSearch = () => {
-    const filtered = jsonData.filter(item =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    
-  };
 
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
- 
 
- 
+    const handleSearch = (searchTerm) => {
+      async function fetchProducts() {
+        if(categoryId){
+          const data = await getProductBySearch(searchTerm);
+          setSearchProducts(data);
+        }
+       // console.log(products);
+      }
+      fetchProducts();
+    };
+
+
+  // const handleChange = (e) => {
+  //   setSearchTerm(e.target.value);
+  // };
+
     const navigate = useNavigate();
 
     const handleViewCart = () => {
@@ -39,41 +48,120 @@ const DisplayNavbar = ({categoryId,setCategoryId}) => {
       navigate('/shopnow');
     };
 
-    useEffect(()=>{
-      // {categoryId==55?navigate('/'):null}
-      navigate('/')
+    // useEffect(()=>{
+    //   // {categoryId==55?navigate('/'):null}
+    //   navigate('/')
 
-    },[categoryId])
+    // },[categoryId])
+    // useEffect(() => {
+    //   if (categoryId === 55) {
+    //     navigate('/');
+    //   }
+    // }, [categoryId, navigate]);
+    
+
+    // return (
+    //   <nav className="navbar">
+    //     {/* Logo & Category Wrapper */}
+    //     <div className="navbar-header">
+    //       <h1 className="navbar-title">sMart</h1>
+    //       <div className="category-section">
+    //         <Cascader expandTrigger="hover" placeholder="Select Category" />
+    //       </div>
+    //     </div>
+    
+
+    
+    //   <Search
+    //     placeholder="Search items"
+    //     value={searchTerm}
+    //     onChange={handleChange}
+    //     enterButton="Search"
+    //     size="small"
+    //     onSearch={handleSearch} 
+    //     style={{ marginBottom: '20px' }}
+    //   />
+           
+    //     {/* Navigation Links */}
+    //     <div className="navbar-links">
+    //     <button 
+    //       onClick={() => {
+    //         setCategoryId(55); // Set categoryId first
+    //         navigate('/'); // Then navigate to home
+    //       }}  
+    //       className="nav-btn home-btn"
+    //     >
+    //       Home
+    //     </button>
+    //       <button onClick={()=>navigate('/allProducts')}className="nav-btn allProducts-btn">
+    //        All Products
+    //       </button>
+    //       <button onClick={handleViewCart} className="nav-btn cart-btn">
+    //         My Cart
+    //       </button>
+    //       <button onClick={handleViewWishlist} className="nav-btn wishlist-btn">
+    //         Wishlist
+    //       </button>
+    //       <UserOutlined />
+    //     </div>
+    //   </nav>
+    // );
 
     return (
       <nav className="navbar">
         {/* Logo & Category Wrapper */}
         <div className="navbar-header">
           <h1 className="navbar-title">sMart</h1>
-          <div className="category-section">
-            <Cascader expandTrigger="hover" placeholder="Select Category" />
+  
+          {/* NEW: Wrapped Search & Cascader in a div for better alignment */}
+          <div className="search-category-container">  {/* // UPDATED */}
+            {/* UPDATED: Improved Cascader Styling */}
+            <Cascader 
+              expandTrigger="hover" 
+              placeholder="Select Category"
+              style={{ width: 200, padding: '5px', borderRadius: '6px' }} // UPDATED
+            />           
           </div>
         </div>
-    
+  
         {/* Navigation Links */}
         <div className="navbar-links">
-          <button onClick={() => setCategoryId(55)} className="nav-btn home-btn">
+          {/* UPDATED: Styled Search Bar */}
+          <Search
+              placeholder="Search items"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              enterButton="Search"
+              size="large" // UPDATED: Increased size
+              onSearch={()=>handleSearch(searchTerm)}
+              className={"nav-searchAntd"} 
+            />
+            {console.log(searchProducts,"searched")}
+          <button 
+            onClick={() => {
+              setCategoryId(55); 
+              navigate('/');
+            }}  
+            className="nav-btn home-btn"
+          >
             Home
           </button>
-          <button onClick={()=>navigate('/allProducts')}className="nav-btn allProducts-btn">
-           All Products
+          <button onClick={() => navigate('/allProducts')} className="nav-btn allProducts-btn">
+            All Products
           </button>
           <button onClick={handleViewCart} className="nav-btn cart-btn">
-            My Cart
+            MyCart
+          <ShoppingCartOutlined />
           </button>
           <button onClick={handleViewWishlist} className="nav-btn wishlist-btn">
-            Wishlist
+           Login
+            <UserOutlined />
           </button>
-          <UserOutlined />
+          
         </div>
       </nav>
     );
-    
+          
 };
 
 export default DisplayNavbar;
@@ -81,14 +169,3 @@ export default DisplayNavbar;
 
 
 
-
-     {/* <Search
-        placeholder="Search items"
-        value={searchTerm}
-        onChange={handleChange}
-        enterButton="Search"
-        size="small"
-        onSearch={handleSearch} 
-        style={{ marginBottom: '20px' }}
-      />
-           */}

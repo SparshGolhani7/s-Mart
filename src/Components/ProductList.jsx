@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useParams,useSearchParams } from "react-router-dom";
 import { getProduct,getProductCategories1 } from "../api/woocommerce";
 
 
-const ProductList = ({categoryId}) => {
+const ProductList = () => {
+  // const {categoryId} = useParams();
+  const [searchParams] = useSearchParams();
+  const categoryId = searchParams.get('catg_id') || "";
   const [products, setProducts] = useState([]);
  
 
@@ -53,14 +57,18 @@ const ProductList = ({categoryId}) => {
  
   
   useEffect(() => {
+    
     async function fetchProducts() {
-      const data = await getProduct (categoryId);
-      setProducts(data);
+      if(categoryId){
+        const data = await getProduct (categoryId);
+        setProducts(data);
+      }
      // console.log(products);
     }
     fetchProducts();
-  }, []);
+  }, [categoryId]);
 
+  
   
 
 

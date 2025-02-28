@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getProduct, getProductCategories1 } from "../api/woocommerce";
 import { useNavigate } from "react-router-dom";
+import { AllContext } from "../context/AllContext";
 
 
 const CategoryList = ({categoryId,setCategoryId}) => {
   const [categories1, setCategories1] = useState([]);
+  const {searchedProduct} = useContext(AllContext)
   const navigate = useNavigate();
- 
-
 
 
   useEffect(() => {
@@ -19,16 +19,29 @@ const CategoryList = ({categoryId,setCategoryId}) => {
     fetchProductCatgeories1();
   }, []);
 
-  useEffect(()=>{
-    console.log("catgid",categoryId)
-    {categoryId!=55?navigate(`/products?catg_Id=${categoryId}`):null}
-  },[categoryId])
+  // useEffect(()=>{
+  //   console.log("catgid",categoryId)
+  //   {categoryId!=55?navigate(`/products?catg_Id=${categoryId}`):null}
+  // },[categoryId])
+
+  // const navigateToProductsById = (a,b)=>{
+ 
+  //   setCategoryId(a)
+  //   navigate(`/products?catg_id=${a}&catg_name=${b}`);
+  // }
+
+  useEffect(() => {
+    if (categoryId!=55) {
+      navigate(`/products?catg_id=${categoryId}`);
+    }
+  }, [categoryId, navigate]); // Runs when categoryId changes
+
+  const handleCategoryClick = (id) => {
+    setCategoryId(id); //  First update the state
+  };
 
   return (
     <>
-     
-
-      <>
         <ul className="category-list">
           {console.log(categories1)}
           {categories1.map((category) => (
@@ -36,23 +49,16 @@ const CategoryList = ({categoryId,setCategoryId}) => {
             <li
              key={category.id}
              className="category-item"
-             onClick={()=>setCategoryId(category.id)}>
+             onClick={()=>handleCategoryClick(category.id)}>
               <h4 className="category-title">{category.name}</h4>
               <img
                 className="category-image"
-                src={category.image?.src|| "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9_JsfwI0j-o3uHyR0r7dkxihGjKoi-fBwDw&s"}
+                src={category.image?.src|| "https://placehold.co/600x400"}
                 alt="loading"
               />
             </li>
           ))}
         </ul>
-      </>
-      
-   
-
-
-
-
     </>
   );
 };

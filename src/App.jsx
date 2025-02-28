@@ -6,12 +6,14 @@ import './App.css'
 import Home from "./Components/Home";
 import CategoryList from "./Components/CategoryList";
 import AllProducts from "./Components/AllProducts";
+import { AllProvider } from "./context/AllContext";
 
 function App() {
   const [categoryId,setCategoryId] = useState(55)
   
 
   return (
+    <AllProvider>
     <BrowserRouter>
    
     {/* <Navbar/> */}
@@ -27,6 +29,7 @@ function App() {
       <Route path="/wishlist" element={<Wishlist/>}></Route> */}
     </Routes>
     </BrowserRouter>
+    </AllProvider>
 
 
   
