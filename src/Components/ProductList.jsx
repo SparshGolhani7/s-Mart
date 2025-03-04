@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams,useSearchParams } from "react-router-dom";
 import { getProduct,getProductCategories1 } from "../api/woocommerce";
+import Filter from "./Filter";
 
 
 const ProductList = () => {
@@ -10,52 +11,6 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
  
 
- 
-
-  // const options = [
-  //   {
-  //     value: 'zhejiang',
-  //     label: 'Zhejiang',
-  //     children: [
-  //       {
-  //         value: 'hangzhou',
-  //         label: 'Hangzhou',
-  //         children: [
-  //           {
-  //             value: 'xihu',
-  //             label: 'West Lake',
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     value: 'jiangsu',
-  //     label: 'Jiangsu',
-  //     children: [
-  //       {
-  //         value: 'nanjing',
-  //         label: 'Nanjing',
-  //         children: [
-  //           {
-  //             value: 'zhonghuamen',
-  //             label: 'Zhong Hua Men',
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  // ];
-
-  // const onChange = (value) => {
-  //   console.log(value);
-  // };
-  
-  // // Just show the latest item.
-  // const displayRender = (labels) => labels[labels.length - 1];
-
- 
-  
   useEffect(() => {
     
     async function fetchProducts() {
@@ -68,9 +23,6 @@ const ProductList = () => {
     fetchProducts();
   }, [categoryId]);
 
-  
-  
-
 
   return (
     <>
@@ -82,8 +34,9 @@ const ProductList = () => {
     placeholder={"SelectBycatg"}
   /> */}
     
-    
+   
       <div className="products-grid">
+      <Filter/>
         {console.log(products)}
         {products.map((product) => (
           <div key={product.id} className="product-card">
@@ -93,7 +46,7 @@ const ProductList = () => {
               alt={product.name} 
             />
             <h3 className="product-name">{product.name}</h3>
-            <p className="product-price" style={{color:"#5b2f5b "}}>₹{product.price}</p>
+            <p className="product-price" style={{color:"#f7fcf8 "}}>₹{product.price}</p>
             <button className="add-to-cart-btn">Add to Cart</button>
           </div>
         ))}

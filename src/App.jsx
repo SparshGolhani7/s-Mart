@@ -7,6 +7,9 @@ import Home from "./Components/Home";
 import CategoryList from "./Components/CategoryList";
 import AllProducts from "./Components/AllProducts";
 import { AllProvider } from "./context/AllContext";
+import SearchProducts from "./Components/SearchProducts";
+import Filter from "./Components/Filter";
+import FilterProducts from "./Components/FilterProducts";
 
 function App() {
   const [categoryId,setCategoryId] = useState(55)
@@ -23,6 +26,10 @@ function App() {
       <Route index element={<CategoryList categoryId={categoryId} setCategoryId={setCategoryId}/>}></Route>
       <Route path="/products" element={<ProductList categoryId={categoryId}/>}></Route>
       <Route path="/allProducts" element={<AllProducts/>}></Route> 
+      <Route path="/searchProducts" element={<SearchProducts/>}></Route>
+     <Route path="/filter" element={<Filter/>}></Route> 
+        <Route path="/filterProducts" element={<FilterProducts/>}></Route>
+
       {/* 
       <Route path="/bestSeller" element={<BestSellers  />}></Route>
       <Route path="/viewcart" element={<MyCart/>}></Route>
@@ -37,6 +44,7 @@ function App() {
 }
 
 export default App;
+
 
 // import React, { useState } from "react";
 // import { Cascader, Card, Row, Col } from "antd";

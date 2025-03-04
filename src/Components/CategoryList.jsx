@@ -3,12 +3,10 @@ import { getProduct, getProductCategories1 } from "../api/woocommerce";
 import { useNavigate } from "react-router-dom";
 import { AllContext } from "../context/AllContext";
 
-
-const CategoryList = ({categoryId,setCategoryId}) => {
+const CategoryList = ({ categoryId, setCategoryId }) => {
   const [categories1, setCategories1] = useState([]);
-  const {searchedProduct} = useContext(AllContext)
+  const { searchedProduct } = useContext(AllContext);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     async function fetchProductCatgeories1() {
@@ -25,13 +23,13 @@ const CategoryList = ({categoryId,setCategoryId}) => {
   // },[categoryId])
 
   // const navigateToProductsById = (a,b)=>{
- 
+
   //   setCategoryId(a)
   //   navigate(`/products?catg_id=${a}&catg_name=${b}`);
   // }
 
   useEffect(() => {
-    if (categoryId!=55) {
+    if (categoryId != 55) {
       navigate(`/products?catg_id=${categoryId}`);
     }
   }, [categoryId, navigate]); // Runs when categoryId changes
@@ -42,23 +40,28 @@ const CategoryList = ({categoryId,setCategoryId}) => {
 
   return (
     <>
-        <ul className="category-list">
-          {console.log(categories1)}
-          {categories1.map((category) => (
-            
-            <li
-             key={category.id}
-             className="category-item"
-             onClick={()=>handleCategoryClick(category.id)}>
-              <h4 className="category-title">{category.name}</h4>
-              <img
-                className="category-image"
-                src={category.image?.src|| "https://placehold.co/600x400"}
-                alt="loading"
-              />
-            </li>
-          ))}
-        </ul>
+     
+        <img 
+        
+         className="category-banner"
+        src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=2700/layout-engine/2022-05/Group-33704.jpg"></img>
+         <ul className="category-list">
+        {console.log(categories1)}
+        {categories1.map((category) => (
+          <li
+            key={category.id}
+            className="category-item"
+            onClick={() => handleCategoryClick(category.id)}
+          >
+            <h4 className="category-title">{category.name}</h4>
+            <img
+              className="category-image"
+              src={category.image?.src || "https://placehold.co/600x400"}
+              alt="loading"
+            />
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

@@ -42,7 +42,9 @@
 } */
 
 
-
+.body{
+  margin-top: 0px;  
+}
 
 /* Header Styling */
 h1 {
@@ -70,7 +72,7 @@ h1 {
   border-radius: 8px;
   padding: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
-  background: white;
+  background: rgb(9, 27, 7);
   text-align: left;
 }
 
@@ -89,7 +91,7 @@ h1 {
 
 .product-name {
   font-size: 1.1rem;
-  color: #333;
+  color: rgb(255, 255, 255);
   margin: 0.5rem 0;
   height: 2.4em;
   overflow: hidden;
@@ -128,6 +130,7 @@ h1 {
 }
 
 
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -135,8 +138,9 @@ h1 {
   background: linear-gradient(to right, #309138, #c8f0dc); /* Green gradient */
   padding: 15px 30px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  height: 125px;
+  /* border-radius: 4px; */
+  height: 57px;
+  margin-top: 0px;
   
 }
 
@@ -203,7 +207,7 @@ h1 {
   .navbar-links {
     margin-top: 10px;
   }
-}
+} 
 
 
 
@@ -223,6 +227,8 @@ h1 {
 /* Cascader Container */
 .cascader-container {
   margin-left: 20px;
+  margin-top: 5px;
+  padding-top: 5px;
 }
 
 /* Category Buttons */
@@ -321,3 +327,58 @@ h4 {
 }
 
 
+
+
+/*Filter ccss*/
+.filter-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.filter-container h2 {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0px 0px 5px rgba(76, 175, 80, 0.5);
+}
+
+
+/*Paan banner*/
+.category-banner {
+  margin: 0px 0px ; /* Top & Bottom: 10px, Left & Right: 0px */
+ /* Ensures it spans the full container */
+  display: block;
+  padding-left: 0px;
+  padding-right: 0px;
+
+}

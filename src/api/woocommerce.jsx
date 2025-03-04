@@ -89,7 +89,13 @@ export const getProductSubCategories1 = async (subCatgId) => {
 
 export const getProductBySearch = async(value)=>{
   try {
-    const response = await woocommerce.get(`/products?search=${value}`)
+    const response = await woocommerce.get("/products",{
+      params:{
+        category:55,
+        search:value.toLowerCase()
+      }
+    }
+      )
     return response.data;
     
   } catch (error) {
@@ -98,6 +104,30 @@ export const getProductBySearch = async(value)=>{
   }
 
 };
+
+export const getProductByFilter = async(minPrice,maxPrice)=>{
+  try {
+    const response = await woocommerce.get("/products",{
+   params: {
+   category: 55, 
+  //  type:productType,
+   min_price: minPrice,
+   max_price: maxPrice,  
+    per_page: 10,
+   },
+    }
+      )
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+
+};
+
+
+
 
 
 

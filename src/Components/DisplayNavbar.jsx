@@ -5,13 +5,15 @@ import {UserOutlined,ShoppingCartOutlined} from '@ant-design/icons'
 import { Cascader } from "antd";
 import { AllContext } from '../context/AllContext';
 import { getProductBySearch } from '../api/woocommerce';
+import Filter from './Filter';
 
 
 const { Search } = Input;
 
 const DisplayNavbar = ({categoryId,setCategoryId}) => {
-  const [searchTerm,setSearchTerm] = useState('')
-  const {searchProducts,setSearchProducts} = useContext(AllContext)
+  
+  const {searchProducts,setSearchProducts,searchTerm,setSearchTerm} = useContext(AllContext)
+  const navigate = useNavigate();
 
   // const handleSearch = async (value) => {
   //   setSearchTerm(value); 
@@ -19,22 +21,13 @@ const DisplayNavbar = ({categoryId,setCategoryId}) => {
 
 
     const handleSearch = (searchTerm) => {
-      async function fetchProducts() {
-        if(categoryId){
-          const data = await getProductBySearch(searchTerm);
-          setSearchProducts(data);
-        }
-       // console.log(products);
-      }
-      fetchProducts();
+      navigate(`/searchProducts?${searchTerm}`)
+      setSearchTerm("")
     };
-
 
   // const handleChange = (e) => {
   //   setSearchTerm(e.target.value);
   // };
-
-    const navigate = useNavigate();
 
     const handleViewCart = () => {
         navigate('/viewcart');
@@ -112,21 +105,23 @@ const DisplayNavbar = ({categoryId,setCategoryId}) => {
         {/* Logo & Category Wrapper */}
         <div className="navbar-header">
           <h1 className="navbar-title">sMart</h1>
+          
   
           {/* NEW: Wrapped Search & Cascader in a div for better alignment */}
           <div className="search-category-container">  {/* // UPDATED */}
             {/* UPDATED: Improved Cascader Styling */}
-            <Cascader 
+            {/* <Cascader 
               expandTrigger="hover" 
               placeholder="Select Category"
               style={{ width: 200, padding: '5px', borderRadius: '6px' }} // UPDATED
-            />           
+            />            */}
           </div>
         </div>
   
         {/* Navigation Links */}
         <div className="navbar-links">
           {/* UPDATED: Styled Search Bar */}
+          
           <Search
               placeholder="Search items"
               value={searchTerm}
@@ -136,7 +131,8 @@ const DisplayNavbar = ({categoryId,setCategoryId}) => {
               onSearch={()=>handleSearch(searchTerm)}
               className={"nav-searchAntd"} 
             />
-            {console.log(searchProducts,"searched")}
+            {/* <button onClick={()=>setSearchTerm("")}>Clear</button> */}
+            {/* {console.log(searchProducts,"searched")} */}
           <button 
             onClick={() => {
               setCategoryId(55); 
@@ -165,7 +161,3 @@ const DisplayNavbar = ({categoryId,setCategoryId}) => {
 };
 
 export default DisplayNavbar;
-
-
-
-
