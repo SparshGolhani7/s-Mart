@@ -21,8 +21,8 @@ export const getProduct = async (catgId) => {
   try {
     const response = await woocommerce.get("/products",{
       params:{
-       per_page:8,
-        category:55,
+       per_page:50,
+        // category:55,
         category:catgId,
 
       // parent_id:55,
@@ -36,22 +36,21 @@ export const getProduct = async (catgId) => {
   }
 };
 
-export const allProducts = async (catgId) => {
+export const allProducts = async (page) => {
   try {
-    const response = await woocommerce.get("/products",{
-      params:{
-       per_page:50,
-        category:55,
+    const response = await woocommerce.get("/products", {
+      params: {
+        per_page: 4, // Load 10 products per request
+        page: page,  // Dynamic page number
+        category: 55,
       },
-    })
+    });
     return response.data;
-    
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
   }
 };
-
 
 
 export const getProductCategories1 = async () => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams,useSearchParams } from "react-router-dom";
 import { getProduct,getProductCategories1 } from "../api/woocommerce";
 import Filter from "./Filter";
+import Pagination from "./Pagination";
 
 
 const ProductList = () => {
@@ -9,7 +10,10 @@ const ProductList = () => {
   const [searchParams] = useSearchParams();
   const categoryId = searchParams.get('catg_id') || "";
   const [products, setProducts] = useState([]);
- 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(6);
+
+
 
   useEffect(() => {
     
@@ -22,6 +26,11 @@ const ProductList = () => {
     }
     fetchProducts();
   }, [categoryId]);
+  
+ const lastPostIndex = currentPage * postsPerPage;
+ const firstPostIndex= lastPostIndex - postsPerPage;
+ const currentPosts = products.slice(firstPostIndex,lastPostIndex);
+
 
 
   return (
@@ -38,7 +47,7 @@ const ProductList = () => {
       <div className="products-grid">
       <Filter/>
         {console.log(products)}
-        {products.map((product) => (
+        {currentPosts.map((product) => (
           <div key={product.id} className="product-card">
             <img 
               className="product-image"
@@ -50,7 +59,9 @@ const ProductList = () => {
             <button className="add-to-cart-btn">Add to Cart</button>
           </div>
         ))}
+        
       </div>
+      <Pagination totalPosts={products.length} postsPerPage={postsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}></Pagination>
     </>
   );
 };
