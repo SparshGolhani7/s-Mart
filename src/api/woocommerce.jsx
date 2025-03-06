@@ -40,7 +40,7 @@ export const allProducts = async (catgId) => {
   try {
     const response = await woocommerce.get("/products",{
       params:{
-       per_page:8,
+       per_page:50,
         category:55,
       },
     })
@@ -113,7 +113,9 @@ export const getProductByFilter = async(minPrice,maxPrice)=>{
   //  type:productType,
    min_price: minPrice,
    max_price: maxPrice,  
-    per_page: 10,
+    
+    // product_brand: brand,
+    per_page:46,
    },
     }
       )
@@ -125,6 +127,25 @@ export const getProductByFilter = async(minPrice,maxPrice)=>{
   }
 
 };
+
+
+export const getProductBrands = async()=>{
+  try {
+    const response = await woocommerce.get("/products/brands",{
+   params: {
+    parent: 178, 
+   },
+    }
+      )
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error fetching brands:", error);
+    return [];
+  }
+};
+
+
 
 
 

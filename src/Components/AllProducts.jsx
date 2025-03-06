@@ -27,7 +27,7 @@ const AllProducts = () => {
 
   <div className="products-grid">
 
-    <Filter/>
+    {/* <Filter/> */}
 
   
   {console.log(products)}

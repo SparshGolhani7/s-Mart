@@ -7,7 +7,10 @@ export const AllProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   const [minPrice, setMinPrice] = useState(100);
   const [maxPrice, setMaxPrice] = useState(500);
-  // const [productType, setProductType] = useState("simple");
+  // const [productType, setProductType] = useState("simple"); brand,setBrand
+  const [brands, setBrands] = useState([]);
+  const [brand, setBrand] = useState("SelectBrand");
+
 
   return (
     <AllContext.Provider
@@ -20,6 +23,11 @@ export const AllProvider = ({ children }) => {
         setMinPrice,
         maxPrice,
         setMaxPrice,
+        brands,
+        setBrands,
+        brand,
+        setBrand
+
       }}
     >
       {children}
