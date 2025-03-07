@@ -10,6 +10,8 @@ import { AllProvider } from "./context/AllContext";
 import SearchProducts from "./Components/SearchProducts";
 import Filter from "./Components/Filter";
 import FilterProducts from "./Components/FilterProducts";
+import { Footer } from "antd/es/layout/layout";
+import FooterComponent from "./Components/Footer";
 
 function App() {
   const [categoryId,setCategoryId] = useState(55)
@@ -35,7 +37,10 @@ function App() {
       <Route path="/viewcart" element={<MyCart/>}></Route>
       <Route path="/wishlist" element={<Wishlist/>}></Route> */}
     </Routes>
+    <FooterComponent/>
     </BrowserRouter>
+    
+
     </AllProvider>
 
 

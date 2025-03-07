@@ -59,9 +59,10 @@ const ProductList = () => {
             <button className="add-to-cart-btn">Add to Cart</button>
           </div>
         ))}
-        
+
       </div>
       <Pagination totalPosts={products.length} postsPerPage={postsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}></Pagination>
+
     </>
   );
 };
