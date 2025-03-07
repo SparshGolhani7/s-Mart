@@ -37,10 +37,11 @@ function App() {
       <Route path="/viewcart" element={<MyCart/>}></Route>
       <Route path="/wishlist" element={<Wishlist/>}></Route> */}
     </Routes>
-    <FooterComponent/>
+    
+    {/* <FooterComponent/> */}
+    
     </BrowserRouter>
     
-
     </AllProvider>
 
 

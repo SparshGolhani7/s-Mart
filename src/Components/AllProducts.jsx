@@ -3,13 +3,11 @@
 // import { AllContext } from "../context/AllContext";
 // import Filter from "./Filter";
 
-
 // const AllProducts = () => {
 //   const [products, setProducts] = useState([]);
 //   // const {setSearchedProducts} = useContext(AllContext)
 //   const [page,setPage] = useState(1);
 
-   
 //   useEffect(() => {
 //     async function fetchProducts() {
 //       const data = await allProducts (page);
@@ -18,7 +16,7 @@
 //     }
 //     fetchProducts();
 //   }, [page]);
-  
+
 //   const handleScroll=()=>{
 //     // console.log("height",document.documentElement.scrollHeight);
 //     // console.log("top",document.documentElement.scrollTop);
@@ -31,32 +29,28 @@
 
 //   useEffect(()=>{
 //     window.addEventListener("scroll",handleScroll);
-//     return ()=>window.removeEventListener("scroll",handleScroll);  
+//     return ()=>window.removeEventListener("scroll",handleScroll);
 //   },[]);
- 
 
- 
 //   return (
 //     <>
-
-
 
 //   <div className="products-grid">
 
 //     {/* <Filter/> */}
-    
-//     <img 
-        
+
+//     <img
+
 //         className="category-banner"
 //        src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=2700/layout-engine/2022-05/Group-33704.jpg"></img>
-  
+
 //   {console.log(products)}
 //   {products.map((product) => (
 //     <div key={product.id} className="product-card">
-//       <img 
+//       <img
 //         className="product-image"
-//         src={product.images[0]?.src} 
-//         alt={product.name} 
+//         src={product.images[0]?.src}
+//         alt={product.name}
 //       />
 //       <h3 className="product-name">{product.name}</h3>
 //       <p className="product-price" style={{color:"#f7fcf8 "}}>₹{product.price}</p>
@@ -81,7 +75,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     async function fetchProducts() {
-      if (!hasMore) return; // Stop fetching 
+      if (!hasMore) return; // Stop fetching
       setLoading(true);
       try {
         const data = await allProducts(page);
@@ -112,6 +106,25 @@ const AllProducts = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const loadMoreProduct = () => {
+    async function fetchProducts() {
+      if (!hasMore) return; // Stop fetching
+      setLoading(true);
+      try {
+        const data = await allProducts(page);
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setProducts((prev) => [...prev, ...data]);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+      setLoading(false);
+    }
+    fetchProducts();
+  };
+
   return (
     <>
       <div className="products-grid">
@@ -121,7 +134,7 @@ const AllProducts = () => {
           alt="Category Banner"
         />
 
-        {products.map((product) => (
+        {products?.map((product) => (
           <div key={product.id} className="product-card">
             <img
               className="product-image"
@@ -135,20 +148,20 @@ const AllProducts = () => {
             <button className="add-to-cart-btn">Add to Cart</button>
           </div>
         ))}
+        {/* <button onClick={()=>{
+         handlePageIncrement()
+          setPage(page+1)}}> 
+          Load More
+        </button> */}
 
-{!loading && !hasMore && (
-        <p style={{ textAlign: "center", margin: "20px", color: "black" }}>
-          No more products available
-        </p>
-      )}
-
+        {!loading && !hasMore && (
+          <p style={{ textAlign: "center", margin: "20px", color: "black" }}>
+            No more products available
+          </p>
+        )}
       </div>
-
-     
     </>
   );
 };
 
 export default AllProducts;
-
-
