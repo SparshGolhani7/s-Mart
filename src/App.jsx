@@ -12,6 +12,9 @@ import Filter from "./Components/Filter";
 import FilterProducts from "./Components/FilterProducts";
 import { Footer } from "antd/es/layout/layout";
 import FooterComponent from "./Components/Footer";
+import MyCart from "./Components/MyCart";
+import { Descriptions } from "antd";
+import Description from "./Components/Description";
 
 function App() {
   const [categoryId,setCategoryId] = useState(55)
@@ -19,7 +22,7 @@ function App() {
 
   return (
     <AllProvider>
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
    
     {/* <Navbar/> */}
     <DisplayNavbar categoryId={categoryId} setCategoryId={setCategoryId} />
@@ -31,6 +34,8 @@ function App() {
       <Route path="/searchProducts" element={<SearchProducts/>}></Route>
      <Route path="/filter" element={<Filter categoryId={categoryId}/>}></Route> 
         <Route path="/filterProducts" element={<FilterProducts/>}></Route>
+        <Route path="/myCart" element={<MyCart/>}></Route>
+        <Route path="/productDetail/:id" element={<Description/>}></Route>
 
       {/* 
       <Route path="/bestSeller" element={<BestSellers  />}></Route>
@@ -40,7 +45,7 @@ function App() {
     
     {/* <FooterComponent/> */}
     
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
     
     </AllProvider>
 

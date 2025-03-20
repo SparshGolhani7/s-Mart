@@ -64,14 +64,17 @@
 
 // export default AllProducts;
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { allProducts } from "../api/woocommerce";
+import { AllContext } from "../context/AllContext";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+
+  const {increment,decrement,cart,handleDetail} = useContext(AllContext)
 
   useEffect(() => {
     async function fetchProducts() {
@@ -134,20 +137,39 @@ const AllProducts = () => {
           alt="Category Banner"
         />
 
-        {products?.map((product) => (
-          <div key={product.id} className="product-card">
+        {products?.map((product) => {
+          const cartItem = cart?.find((item)=>item.id===product.id)
+          const count = cartItem ? cartItem.qty :0;
+
+          return(
+            <div key={product.id} className="product-card">
             <img
               className="product-image"
               src={product.images[0]?.src}
               alt={product.name}
+              onClick={()=>handleDetail(product)}
             />
             <h3 className="product-name">{product.name}</h3>
             <p className="product-price" style={{ color: "#f7fcf8" }}>
               ₹{product.price}
             </p>
-            <button className="add-to-cart-btn">Add to Cart</button>
+            {count===0?(<button
+          onClick={()=>increment(product)}
+           className="add-to-cart-btn">Add to Cart</button>):(
+            <div className="cart-qty">
+            <button
+          onClick={()=>decrement(product)}
+           >-</button>
+          <span className="countForAddToCart">{count}</span>
+           <button
+          onClick={()=>increment(product)}
+           >+</button></div>
+           )}
           </div>
-        ))}
+
+          )
+          
+})}
         {/* <button onClick={()=>{
          handlePageIncrement()
           setPage(page+1)}}> 
@@ -165,3 +187,4 @@ const AllProducts = () => {
 };
 
 export default AllProducts;
+

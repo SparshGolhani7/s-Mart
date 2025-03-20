@@ -30,7 +30,7 @@ const DisplayNavbar = ({categoryId,setCategoryId}) => {
   // };
 
     const handleViewCart = () => {
-        navigate('/viewcart');
+        navigate('/myCart');
     };
 
     const handleViewWishlist = () => {
