@@ -42,4 +42,4 @@ export default Description
 
 
 
-//           <p className="productt-description" dangerouslySetInnerHTML={{ __html: product.description }}></p>
+// <p className="productt-description" dangerouslySetInnerHTML={{ __html: product.description }}></p>

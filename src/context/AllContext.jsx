@@ -1,54 +1,59 @@
-import { useContext, createContext, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useContext, createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AllContext = createContext();
 
 export const AllProvider = ({ children }) => {
-  const [searchProducts, setSearchProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState([]);
-  const [minPrice, setMinPrice] = useState(100);
-  const [maxPrice, setMaxPrice] = useState(500);
-  // const [productType, setProductType] = useState("simple"); brand,setBrand
-  const [brands, setBrands] = useState([]);
-  const [brand, setBrand] = useState("SelectBrand");
-  const [cart,setCart] = useState([]);
-  const [productDetail,setProductDetail] = useState(null);
   const navigate = useNavigate();
 
-    // Increment function
-    const increment = (product) => {
-      setCart((prevCart) => {
-        const existingItem = prevCart.find((item) => item.id === product.id);
-        if (existingItem) {
-  
-          return prevCart.map((item) =>
-            item.id === product.id ? { ...item, qty: item.qty + 1 } : item
-          );
-        } else {
-          return [...prevCart, {...product,qty: 1 }];
-        }
-      });
-    };
-  
-    // Decrement function
-    const decrement = (product) => {
-      setCart((prevCart) => {
-        return prevCart
-          .map((item) =>
-            item.id === product.id ? { ...item, qty: item.qty - 1 } : item
-          )
-          .filter((item) => item.qty > 0);
-      });
-    };
+  // Load cart from localStorage or initialize it as an empty array
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
-      const handleDetail = (product) => {
-        setProductDetail(product)
+  const [searchProducts, setSearchProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [minPrice, setMinPrice] = useState(100);
+  const [maxPrice, setMaxPrice] = useState(500);
+  const [brands, setBrands] = useState([]);
+  const [brand, setBrand] = useState("SelectBrand");
+  const [productDetail, setProductDetail] = useState(null);
 
-        navigate(`/productDetail/${product.id}`);
-      };
-    
-  
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
+  // Increment function
+  const increment = (product) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+        );
+      } else {
+        return [...prevCart, { ...product, qty: 1 }];
+      }
+    });
+  };
+
+  // Decrement function
+  const decrement = (product) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty - 1 } : item
+        )
+        .filter((item) => item.qty > 0)
+    );
+  };
+
+  const handleDetail = (product) => {
+    setProductDetail(product);
+    navigate(`/productDetail/${product.id}`);
+  };
 
   return (
     <AllContext.Provider
@@ -71,14 +76,10 @@ export const AllProvider = ({ children }) => {
         setCart,
         productDetail,
         setProductDetail,
-        handleDetail
-
-
+        handleDetail,
       }}
     >
       {children}
     </AllContext.Provider>
   );
 };
-
-
